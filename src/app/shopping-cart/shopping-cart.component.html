@@ -1,0 +1,74 @@
+<h1>Shopping Cart</h1>
+<div class="row col-10" *ngIf="cart$ | async as cart">
+    <p>
+        You have {{ cart.totalItemsCount }} items in your shopping cart.
+    </p>
+
+
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th></th>
+            <th>Product</th>
+            <th class="text-center" style="width: 230px">Quantity</th>
+            <th class="text-right" style="width: 200px">Total Price</th>
+        </tr>
+        </thead>
+        <tbody class="bg-white" *ngFor="let item of cart.items">
+            <ng-container *ngIf="item.quantity !== 0">
+            <tr>
+                <td>
+                    <div [style.backgroundImage]="'url(' + item.imageUrl + ')'" class="thumbnail" ></div>
+                </td>
+                <td>{{ item.title }}</td>
+                <td class="text-center">
+                    <product-quantity [product]="item" [shopping-cart]="cart"></product-quantity>
+                </td>
+                <td class="text-right"> {{ item.totalPrice | currency:'USD':true }} </td>
+            </tr>
+            </ng-container>
+        </tbody>
+        <thead class="thead-light">
+            <tr>
+                <th></th>
+                <th></th>
+                <th class="text-center">Total Price</th>
+                <th class="text-right"> {{ cart.totalPrice | currency:'USD':true }} </th>
+            </tr>
+        </thead>
+    </table>
+    
+    <button (click)="clearCart()" class="btn btn-danger sm">Clear Shopping Cart</button>
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- <table class="table">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+            </tr>
+        </thead>
+        <tbody> 
+            <tr *ngFor="let productId of cart.productIds">          
+                <td>            
+                    {{ cart.items[productId].product.title }}       
+                </td>
+                    {{ cart.items[productId].quantity }}
+                <td>
+                </td>
+
+                <td>   
+                </td>
+
+            </tr>
+        </tbody>
+        </table> -->
+        
